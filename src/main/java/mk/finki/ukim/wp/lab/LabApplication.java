@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab;
+package mk.finki.ukim.wp.lab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
