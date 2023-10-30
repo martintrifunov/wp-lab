@@ -1,12 +1,12 @@
 package mk.finki.ukim.wp.lab.repository;
 
-import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.TicketOrder;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Repository
 public class TicketOrderRepository {
 
     public List<TicketOrder> ticketOrderList = new ArrayList<>();

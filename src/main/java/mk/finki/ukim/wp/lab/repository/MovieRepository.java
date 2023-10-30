@@ -1,15 +1,19 @@
 package mk.finki.ukim.wp.lab.repository;
 
+import jakarta.annotation.PostConstruct;
 import mk.finki.ukim.wp.lab.model.Movie;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class MovieRepository {
     public List<Movie> movieList = null;
 
-    public void movieData() {
+    @PostConstruct
+    public void init() {
         movieList = new ArrayList<>();
         movieList.add(new Movie("The Shawshank Redemption (1994)", "A tale of hope and friendship as two inmates bond while serving life sentences in Shawshank State Penitentiary.", 9.6));
         movieList.add(new Movie("The Godfather (1972)", "A powerful crime drama that explores the dynamics of the Corleone family and their involvement in organized crime.", 9.2));
@@ -24,12 +28,10 @@ public class MovieRepository {
     }
 
     public List<Movie> findAll() {
-        movieData();
         return movieList;
     }
 
     public List<Movie> searchMovies(String text) {
-        movieData();
         return movieList
                 .stream()
                 .filter(movie -> movie.getTitle().contains(text) ||

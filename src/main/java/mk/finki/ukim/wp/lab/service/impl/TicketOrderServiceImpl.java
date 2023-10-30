@@ -4,7 +4,9 @@ import mk.finki.ukim.wp.lab.model.TicketOrder;
 import mk.finki.ukim.wp.lab.repository.MovieRepository;
 import mk.finki.ukim.wp.lab.repository.TicketOrderRepository;
 import mk.finki.ukim.wp.lab.service.TickerOrderService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TicketOrderServiceImpl implements TickerOrderService {
     private final TicketOrderRepository ticketOrderRepository;
 
