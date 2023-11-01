@@ -38,4 +38,9 @@ public class MovieRepository {
                         movie.getSummary().contains(text))
                 .collect(Collectors.toList());
     }
+
+    public void incrementTicketOrders(String title, long amount) {
+        long currentNumberOfTicketOrders = movieList.stream().filter(t -> t.getTitle().equals(title)).findFirst().get().getNumberOfTicketOrders();
+        movieList.stream().filter(f -> f.getTitle().equals(title)).findFirst().get().setNumberOfTicketOrders(currentNumberOfTicketOrders + amount);
+    }
 }

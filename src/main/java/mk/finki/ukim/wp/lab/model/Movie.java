@@ -7,6 +7,7 @@ public class Movie {
     private String title;
     private String summary;
     private double rating;
+    private long numberOfTicketOrders;
 
     public Movie(String title, String summary, double rating) {
         this.title = title;
@@ -25,4 +26,9 @@ public class Movie {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+    public void setNumberOfTicketOrders(long numberOfTicketOrders) {
+        this.numberOfTicketOrders = numberOfTicketOrders;
+    }
+
 }

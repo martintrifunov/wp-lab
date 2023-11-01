@@ -25,4 +25,8 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.searchMovies(text);
     }
 
+    @Override
+    public void increaseNumberOfTicketOrders(String title, long amount) {
+        movieRepository.incrementTicketOrders(title, amount);
+    }
 }

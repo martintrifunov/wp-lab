@@ -31,10 +31,19 @@ public class MovieListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Movie mostPopularMovie = movieService.listAll().get(0);
+
+        for(Movie movie : movieService.listAll()) {
+            if(movie.getNumberOfTicketOrders() > mostPopularMovie.getNumberOfTicketOrders()) {
+                mostPopularMovie = movie;
+            }
+        }
+
         IWebExchange webExchange = JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp);
 
         WebContext context = new WebContext(webExchange);
         context.setVariable("movies", this.movieService.listAll());
+        context.setVariable("mostPopularMovie", mostPopularMovie);
 
         this.springTemplateEngine.process("listMovies.html", context, resp.getWriter());
     }
@@ -62,6 +71,7 @@ public class MovieListServlet extends HttpServlet {
 
 //            TicketOrder ticketOrder = new TicketOrder(movieName, req.getHeader("User-Agent"), req.getRemoteAddr(), numberOfTickets);
 
+            movieService.increaseNumberOfTicketOrders(movieName, numberOfTickets);
             req.getSession().setAttribute("ticketOrder", this.ticketOrderService.placeOrder(movieName, req.getHeader("User-Agent"), req.getRemoteAddr(), numberOfTickets));
             resp.sendRedirect("/ticketOrder");
         }
