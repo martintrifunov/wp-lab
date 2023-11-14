@@ -14,24 +14,31 @@
   <h1>Welcome to our Movie Ticket Shop App</h1>
 </header>
 <main>
-  <h2>Most popular movie: <th:block th:text="${mostPopularMovie.getTitle()}"></th:block></h2>
+<!--  <h2>Most popular movie: <th:block th:text="${mostPopularMovie.getTitle()}"></th:block></h2>-->
+  <a th:href="@{/movies/add}"><button>Add new movie</button></a>
 
   <h2>Choose movie:</h2>
   <!-- Display radio buttons for each movie,
           the value should be the movie title
           and the displayed text should be Title: <movie_title>, Summary:<movie_summary>, Rating: <movie_rating> -->
-<form th:method="POST" th:action="@{/}" >
+
+  <form th:method="POST" th:action="@{/ticketorder}" >
   <ul>
     <li th:each="movie: ${movies}">
       <h3>Title: <th:block th:text="${movie.getTitle()}"></th:block></h3>
       <h5>Summary: <th:block th:text="${movie.getSummary()}"></th:block></h5>
       <h6>Rating: <th:block th:text="${movie.getRating()}"></th:block></h6>
-      <label><input name="select-movie" required type="radio" th:value="${movie.getTitle()}"> Select Movie</label>
+      <h6>Rating: <th:block th:text="${movie.getProduction().getName()}"></th:block></h6>
+      <label><input name="select-movie" type="radio" th:value="${movie.getTitle()}"> Select Movie</label>
+      </br>
+      <a th:href="@{'/movies/edit/' + ${movie.id}}"><button type="button">Edit</button></a>
+      <a th:href="@{'/movies/delete/' + ${movie.id}}" onclick="return confirm('Are you sure you want to delete this movie?')"><button type="button">Delete</button></a>
     </li>
   </ul>
 
+
   <h2>Choose number of tickets:</h2>
-  <input type="number" required name="numTickets" min="1" max="10"><br/>
+  <input type="number" name="numTickets" min="1" max="10"><br/>
   <br/>
   <input type="submit" value="Submit" name="placeOrderSubmit">
 </form>

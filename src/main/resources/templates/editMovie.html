@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Movie</title>
+</head>
+<body>
+<h2>Edit Movie</h2>
+<form th:action="@{'/movies/edit/{id}' (id=${movie.getId()})}" th:method="POST">
+    <input id="id" type="hidden" name="movieId" th:value="(${movie} != null ? ${movie.getId()} : '0')">
+    <br>
+    <label for="movieTitle">Movie name</label>
+    <input type="text"
+           id="movieTitle"
+           name="movieTitle"
+           th:value="(${movie} != null ? ${movie.getTitle()} : '')"
+           required
+           placeholder="Enter movie title">
+    <br>
+    <label for="summary">Summary</label>
+    <input type="text"
+           id="summary"
+           name="summary"
+           th:value="(${movie} != null ? ${movie.getSummary()} : '')"
+           placeholder="Summary">
+    <br>
+    <label for="rating">Rating</label>
+    <input type="text"
+           id="rating"
+           name="rating"
+           th:value="(${movie} != null ? ${movie.getRating()} : '')"
+           placeholder="rating">
+    <br>
+    <label for="productions">Production</label>
+    <select id="productions" name="productionId">
+        <option th:each="prod : ${productions}"
+                th:value="${prod.getId()}"
+                th:text="${prod.getName()}"
+                th:selected="${movie != null and movie.getProduction() != null and movie.production.getId() == prod.getId()}">
+        </option>
+    </select>
+
+    <input type="submit" value="Save Changes"/>
+    <br>
+    <a type="button" href="/movies">Back</a>
+</form>
+
+</body>
+</html>

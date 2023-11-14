@@ -4,15 +4,19 @@ import lombok.Getter;
 
 @Getter
 public class Movie {
+    private Long id;
     private String title;
     private String summary;
     private double rating;
     private long numberOfTicketOrders;
+    private Production production;
 
-    public Movie(String title, String summary, double rating) {
+    public Movie(String title, String summary, double rating, Production production) {
+        this.id = (long) (Math.random() * 1000);
         this.title = title;
         this.summary = summary;
         this.rating = rating;
+        this.production = production;
     }
 
     public void setTitle(String title) {
@@ -31,4 +35,7 @@ public class Movie {
         this.numberOfTicketOrders = numberOfTicketOrders;
     }
 
+    public void setProduction(Production production) {
+        this.production = production;
+    }
 }
