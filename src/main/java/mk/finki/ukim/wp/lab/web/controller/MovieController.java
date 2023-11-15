@@ -75,4 +75,12 @@ public class MovieController {
        movieService.saveMovie(movieTitle, movieSummary, movieRating, foundProduction);
        return "redirect:/movies";
     }
+
+    @GetMapping("/clone/{id}")
+    public String cloneMovie(@PathVariable Long id) {
+
+        Movie clonedMovie = this.movieService.findById(id);
+        movieService.saveMovie("Clone of " + clonedMovie.getTitle(), clonedMovie.getSummary(), clonedMovie.getRating(), clonedMovie.getProduction());
+        return "redirect:/movies";
+    }
 }

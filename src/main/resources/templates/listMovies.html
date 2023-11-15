@@ -33,6 +33,7 @@
       </br>
       <a th:href="@{'/movies/edit/' + ${movie.id}}"><button type="button">Edit</button></a>
       <a th:href="@{'/movies/delete/' + ${movie.id}}" onclick="return confirm('Are you sure you want to delete this movie?')"><button type="button">Delete</button></a>
+      <a th:href="@{'/movies/clone/' + ${movie.id}}"><button type="button">Clone</button></a>
     </li>
   </ul>
 
