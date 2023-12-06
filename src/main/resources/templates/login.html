@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form class="form-signin mt-xl-5" method="post" action="/login">
+  <label for="username" class="sr-only">Username</label>
+  <br>
+  <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+  <br>
+  <label for="password" class="sr-only">Password</label>
+  <br>
+  <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+  <th:block th:if="${hasError}">
+    <div th:text="${error}" class="text-danger"></div>
+  </th:block>
+  <br>
+  <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <br>
+  <a href="/register" class="btn btn-lg btn-block btn-light">Register here</a>
+</form>
+</body>
+</html>

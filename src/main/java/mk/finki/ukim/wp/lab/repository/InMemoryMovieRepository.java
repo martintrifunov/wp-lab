@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class MovieRepository {
+public class InMemoryMovieRepository {
     public List<Movie> movieList = null;
-    ProductionRepository production = new ProductionRepository();
+    InMemoryProductionRepository production = new InMemoryProductionRepository();
 
     @PostConstruct
     public void init() {

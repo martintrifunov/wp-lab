@@ -72,7 +72,7 @@ public class MovieListServlet extends HttpServlet {
 //            TicketOrder ticketOrder = new TicketOrder(movieName, req.getHeader("User-Agent"), req.getRemoteAddr(), numberOfTickets);
 
             movieService.increaseNumberOfTicketOrders(movieName, numberOfTickets);
-            req.getSession().setAttribute("ticketOrder", this.ticketOrderService.placeOrder(movieName, req.getHeader("User-Agent"), req.getRemoteAddr(), numberOfTickets));
+//            req.getSession().setAttribute("ticketOrder", this.ticketOrderService.placeOrder(movieName, req.getHeader("User-Agent"), req.getRemoteAddr(), numberOfTickets));
             resp.sendRedirect("/ticketOrder");
         }
     }

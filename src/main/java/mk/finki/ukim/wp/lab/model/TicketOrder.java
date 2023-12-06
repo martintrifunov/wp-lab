@@ -1,36 +1,36 @@
 package mk.finki.ukim.wp.lab.model;
 
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+@NoArgsConstructor
+@Table(name="ticket_order")
 public class TicketOrder {
-    private String movieTitle;
-    private String clientName;
-    private String clientAddress;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long numberOfTickets;
 
-    public TicketOrder(String movieTitle, String clientName, String clientAddress, Long numberOfTickets) {
-        this.movieTitle = movieTitle;
-        this.clientName = clientName;
-        this.clientAddress = clientAddress;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    @Column(name = "date_created")
+    private LocalDateTime dateCreated;
+
+    public TicketOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated) {
+        this.movie = movie;
+        this.user = user;
+        this.dateCreated = dateCreated;
         this.numberOfTickets = numberOfTickets;
     }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    public void setClientAddress(String clientAddress) {
-        this.clientAddress = clientAddress;
-    }
-
-    public void setNumberOfTickets(Long numberOfTickets) {
-        this.numberOfTickets = numberOfTickets;
-    }
-
-
 }

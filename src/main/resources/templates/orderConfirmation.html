@@ -28,16 +28,8 @@
       </th>
     </tr>
     <tr>
-      <td><b>Client Name </b></td>
-      <td><th:block th:text="${ticketOrder.getClientName()}"></th:block></td>
-    </tr>
-    <tr>
-      <td><b>Client IP Address</b></td>
-      <td><th:block th:text="${ticketOrder.getClientAddress()}"></th:block></td>
-    </tr>
-    <tr>
       <td><b>Ticket for Movie</b></td>
-      <td><th:block th:text="${ticketOrder.getMovieTitle()}"></th:block></td>
+      <td><th:block th:text="${ticketOrder.getMovie().getTitle()}"></th:block></td>
     </tr>
     <tr>
       <td><b>Number of tickets</b></td>

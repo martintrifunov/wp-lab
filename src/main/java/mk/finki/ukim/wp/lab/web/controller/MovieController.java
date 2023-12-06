@@ -1,7 +1,10 @@
 package mk.finki.ukim.wp.lab.web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.Production;
+import mk.finki.ukim.wp.lab.model.User;
 import mk.finki.ukim.wp.lab.service.MovieService;
 import mk.finki.ukim.wp.lab.service.ProductionService;
 import org.springframework.stereotype.Controller;
@@ -22,10 +25,16 @@ public class MovieController {
     }
 
     @GetMapping()
-    public String getMoviesPage(@RequestParam(required = false) String error, Model model) {
+    public String getMoviesPage(@RequestParam(required = false) String error, Model model, HttpServletRequest req) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
+        }
+
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
         }
         List<Movie> movies = this.movieService.listAll();
         model.addAttribute("movies", movies);
@@ -41,7 +50,7 @@ public class MovieController {
 
     @GetMapping("/edit/{id}")
     public String editMoviePage(@PathVariable Long id, Model model){
-        Movie movie = movieService.findById(id);
+        Movie movie = movieService.findById(id).get();
         model.addAttribute("movie",movie);
         List<Production> productions = productionService.findAll();
         model.addAttribute("productions",productions);
@@ -54,7 +63,7 @@ public class MovieController {
                             @RequestParam String summary,
                             @RequestParam double rating,
                             @RequestParam Long productionId) {
-        movieService.editMovie(id, movieTitle, summary, rating, productionService.findById(productionId));
+        movieService.editMovie(id, movieTitle, summary, rating, productionId);
         return "redirect:/movies";
     }
 
@@ -70,17 +79,16 @@ public class MovieController {
                                     @RequestParam String movieSummary,
                                     @RequestParam double movieRating,
                                     @RequestParam Long productionId) {
-       Production foundProduction = productionService.findById(productionId);
 
-       movieService.saveMovie(movieTitle, movieSummary, movieRating, foundProduction);
+       movieService.saveMovie(movieTitle, movieSummary, movieRating, productionId);
        return "redirect:/movies";
     }
 
     @GetMapping("/clone/{id}")
     public String cloneMovie(@PathVariable Long id) {
 
-        Movie clonedMovie = this.movieService.findById(id);
-        movieService.saveMovie("Clone of " + clonedMovie.getTitle(), clonedMovie.getSummary(), clonedMovie.getRating(), clonedMovie.getProduction());
+        Movie clonedMovie = this.movieService.findById(id).get();
+        movieService.saveMovie("Clone of " + clonedMovie.getTitle(), clonedMovie.getSummary(), clonedMovie.getRating(), clonedMovie.getProduction().getId());
         return "redirect:/movies";
     }
 }

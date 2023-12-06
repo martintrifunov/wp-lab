@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-public class TicketOrderRepository {
+public class InMemoryTicketOrderRepository {
 
     public List<TicketOrder> ticketOrderList = new ArrayList<>();
 //    public HashMap<String, Long> moviesWithTickets = new HashMap<String, Long>();
@@ -14,9 +14,9 @@ public class TicketOrderRepository {
 
     public TicketOrder save(TicketOrder ticketOrder) {
         if (ticketOrder == null
-                || ticketOrder.getMovieTitle().isEmpty()
-                || ticketOrder.getClientAddress().isEmpty()
-                || ticketOrder.getClientName().isEmpty()
+//                || ticketOrder.getMovieTitle().isEmpty()
+//                || ticketOrder.getClientAddress().isEmpty()
+//                || ticketOrder.getClientName().isEmpty()
                 || ticketOrder.getNumberOfTickets() < 0) {
             throw new IllegalArgumentException();
         }

@@ -1,29 +1,38 @@
 package mk.finki.ukim.wp.lab.service.impl;
 
+import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.TicketOrder;
-import mk.finki.ukim.wp.lab.repository.MovieRepository;
-import mk.finki.ukim.wp.lab.repository.TicketOrderRepository;
+import mk.finki.ukim.wp.lab.model.User;
+import mk.finki.ukim.wp.lab.repository.InMemoryTicketOrderRepository;
+import mk.finki.ukim.wp.lab.repository.jpa.TicketOrderRepository;
 import mk.finki.ukim.wp.lab.service.TicketOrderService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class TicketOrderServiceImpl implements TicketOrderService {
-    private final TicketOrderRepository ticketOrderRepository;
+    private final InMemoryTicketOrderRepository ticketOrderRepository;
+    private final TicketOrderRepository ticketOrderRepositoryJPA;
 
-    public TicketOrderServiceImpl(TicketOrderRepository ticketOrderRepository) {
+    public TicketOrderServiceImpl(InMemoryTicketOrderRepository ticketOrderRepository, TicketOrderRepository ticketOrderRepositoryJPA) {
         this.ticketOrderRepository = ticketOrderRepository;
+        this.ticketOrderRepositoryJPA = ticketOrderRepositoryJPA;
     }
     @Override
-    public TicketOrder placeOrder(String movieTitle, String clientName, String address, long numberOfTickets) {
-        if (movieTitle == null || movieTitle.isEmpty()
-                || clientName == null || clientName.isEmpty()
-                || address == null || address.isEmpty()
-                || numberOfTickets < 0) {
+    public TicketOrder placeOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated) {
+        if (numberOfTickets < 0) {
             throw new IllegalArgumentException();
         }
 
-        TicketOrder ticketOrder = new TicketOrder(movieTitle, clientName, address, numberOfTickets);
+        TicketOrder ticketOrder = new TicketOrder(user, movie, numberOfTickets, dateCreated);
         return this.ticketOrderRepository.save(ticketOrder);
+    }
+
+    @Override
+    public List<TicketOrder> getOrdersWithinTimeInterval(LocalDateTime from, LocalDateTime to) {
+        return ticketOrderRepositoryJPA.findByDateCreatedBetween(from, to);
     }
 
 }

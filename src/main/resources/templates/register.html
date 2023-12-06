@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<form class="form-signin mt-xl-5" method="post" action="/register">
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+    <br>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+    <br>
+    <label for="repeatedPassword" class="sr-only">Repeat Password</label>
+    <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" placeholder="Repeat Password" required="">
+    <br>
+    <label for="name" class="sr-only">Name</label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="" autofocus="">
+    <br>
+    <label for="surname" class="sr-only">Surname</label>
+    <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required="" autofocus="">
+    <br>
+    <label for="dateOfBirth" class="sr-only">Date of Birth</label>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" required>
+    <th:block th:if="${hasError}">
+        <div th:text="${error}" class="text-danger"></div>
+    </th:block>
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+</form>
+<br>
+<a href="/login" class="btn btn-block btn-light">Already have an account? Login here!</a>
+</body>
+</html>

@@ -1,7 +1,5 @@
 package mk.finki.ukim.wp.lab.repository;
 
-import jakarta.annotation.PostConstruct;
-import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.Production;
 import org.springframework.stereotype.Repository;
 
@@ -9,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProductionRepository {
+public class InMemoryProductionRepository {
     public List<Production> productionList;
 
-    public ProductionRepository() {
+    public InMemoryProductionRepository() {
         productionList = new ArrayList<>();
         productionList.add(new Production("Warner Bros. Pictures", "United States", "4000 Warner Blvd, Burbank, CA 91522, USA"));
         productionList.add(new Production("Universal Pictures", "United States", "100 Universal City Plaza, Universal City, CA 91608, USA"));

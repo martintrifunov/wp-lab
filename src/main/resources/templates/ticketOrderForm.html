@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Orders</title>
+</head>
+<body>
+<form th:action="@{/ticketorder/orders-in-time-interval}" method="get">
+    <label for="from">From:</label>
+    <input type="datetime-local" class="form-control" id="from" name="from" required>
+    <label for="to">To:</label>
+    <input type="datetime-local" class="form-control" id="to" name="to" required>
+    <button type="submit" class="btn btn-primary">Get Orders</button>
+</form>
+<a th:href="@{/movies}">Back to movies</a>
+</body>
+</html>

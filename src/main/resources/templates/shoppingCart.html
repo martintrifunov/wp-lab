@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<h1>Your Shopping Cart</h1>
+<ul>
+    <li th:each="movie: ${movies}">
+        <h3>Title: <th:block th:text="${movie.getMovie().getTitle()}"></th:block></h3>
+        <h5>Summary: <th:block th:text="${movie.getMovie().getSummary()}"></th:block></h5>
+        <h6>Rating: <th:block th:text="${movie.getMovie().getRating()}"></th:block></h6>
+        <h6>Production: <th:block th:text="${movie.getMovie().getProduction().getName()}"></th:block></h6>
+        <h6>Number of Tickets: <th:block th:text="${movie.getNumberOfTickets()}"></th:block></h6>
+        <h6>Date Created: <th:block th:text="${movie.getDateCreated()}"></th:block></h6>
+    </li>
+</ul>
+<br>
+<a th:href="@{/movies}">Back to movies</a>
+</body>
+</html>

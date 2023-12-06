@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtered Orders</title>
+</head>
+<body>
+<h1>Filtered Orders</h1>
+<tr th:each="order : ${orders}">
+    <td th:text="${order.user.fullname.name}"></td>
+    <td th:text="${order.movie.title}"></td>
+    <td th:text="${order.numberOfTickets}"></td>
+    <td th:text="${order.dateCreated}"></td>
+</tr>
+<ul>
+    <li th:each="order: ${orders}">
+        <h3>Customer: <th:block th:text="${order.user.fullname.name}"></th:block></h3>
+        <h5>Movie Title: <th:block th:text="${order.movie.title}"></th:block></h5>
+        <h6>Number of Tickets: <th:block th:text="${order.numberOfTickets}"></th:block></h6>
+        <h6>Date Created: <th:block th:text="${order.dateCreated}"></th:block></h6>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Production</title>
+</head>
+<body>
+<h2>Add Movie</h2>
+<form th:action="@{/productions/add}" th:method="POST">
+    <label for="productionName">Production Name</label>
+    <input type="text"
+           id="productionName"
+           name="productionName"
+           required
+           placeholder="Enter Production title">
+    <br>
+    <label for="productionCountry">Country</label>
+    <input type="text"
+           id="productionCountry"
+           name="productionCountry"
+           placeholder="Country">
+    <br>
+    <label for="productionAddress">Address</label>
+    <input type="text"
+           id="productionAddress"
+           name="productionAddress"
+           placeholder="Address">
+    <br>
+
+    <input type="submit" value="Add Productions"/>
+    <br>
+    <a type="button" href="/movies">Back</a>
+</form>
+
+</body>
+</html>
