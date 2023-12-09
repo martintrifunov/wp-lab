@@ -14,6 +14,10 @@
         <h6>Production: <th:block th:text="${movie.getMovie().getProduction().getName()}"></th:block></h6>
         <h6>Number of Tickets: <th:block th:text="${movie.getNumberOfTickets()}"></th:block></h6>
         <h6>Date Created: <th:block th:text="${movie.getDateCreated()}"></th:block></h6>
+        <h6>Discount Name: <th:block th:text="${movie.getDiscount().getName()}"></th:block></h6>
+        <h6>Discount Percent: <th:block th:text="${movie.getDiscount().getPercent()}"></th:block></h6>
+        <h6>Original Price: <th:block th:text="${movie.getPrice()}"></th:block></h6>
+        <h6>Discounted Price: <th:block th:text="${movie.getPrice() - (movie.getDiscount().getPercent() * 0.01 * movie.getPrice())}"></th:block></h6>
     </li>
 </ul>
 <br>

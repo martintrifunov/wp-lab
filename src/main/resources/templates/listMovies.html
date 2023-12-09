@@ -21,6 +21,7 @@
   <a th:href="@{/productions/add}"><button>Add new production</button></a>
   <a th:href="@{/shopping-cart}"><button type="button">Your Shopping Cart</button></a>
   <a th:href="@{/ticketorder}"><button type="button">List of Orders</button></a>
+  <a th:href="@{/discounts/add}"><button type="button">Add Discount</button></a>
 
 
   <h2>Choose movie:</h2>
@@ -57,6 +58,9 @@
           <h5>Summary: <th:block th:text="${movie.getSummary()}"></th:block></h5>
           <h6>Rating: <th:block th:text="${movie.getRating()}"></th:block></h6>
           <h6>Production: <th:block th:text="${movie.getProduction().getName()}"></th:block></h6>
+          <h6>Price: <th:block th:text="${movie.getPrice()}"></th:block></h6>
+          <h6>Discount Name: <th:block th:text="${movie.getDiscount().getName()}"></th:block></h6>
+          <h6>Discount Percent: <th:block th:text="${movie.getDiscount().getPercent()}"></th:block></h6>
           </br>
           <a th:href="@{'/movies/edit/' + ${movie.id}}"><button type="button">Edit</button></a>
           <a th:href="@{'/movies/delete/' + ${movie.id}}" onclick="return confirm('Are you sure you want to delete this movie?')"><button type="button">Delete</button></a>

@@ -2,9 +2,11 @@ package mk.finki.ukim.wp.lab.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import mk.finki.ukim.wp.lab.model.Discount;
 import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.TicketOrder;
 import mk.finki.ukim.wp.lab.model.User;
+import mk.finki.ukim.wp.lab.service.DiscountService;
 import mk.finki.ukim.wp.lab.service.MovieService;
 import mk.finki.ukim.wp.lab.service.TicketOrderService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,11 +26,13 @@ import java.util.Optional;
 public class TicketOrderController {
     private final TicketOrderService ticketOrderService;
     private final MovieService movieService;
+    private final DiscountService discountService;
 
     public TicketOrderController(TicketOrderService ticketOrderService,
-                                 MovieService movieService) {
+                                 MovieService movieService, DiscountService discountService) {
         this.ticketOrderService = ticketOrderService;
         this.movieService = movieService;
+        this.discountService = discountService;
     }
 //    @PostMapping
 //    public String placeOrderSubmit(@RequestParam String selectedMovie,
@@ -65,12 +69,15 @@ public class TicketOrderController {
     public String placeOrderSubmit(@RequestParam Long movieId,
                                    @RequestParam Long numTickets,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dateCreated,
+                                   @RequestParam double price,
+                                   @RequestParam Long discountId,
                                    Model model,
                                    HttpServletRequest req) {
         User username = (User) req.getSession().getAttribute("user");
         Movie movie = movieService.findById(movieId).get();
+        Discount discount = discountService.findById(discountId).get();
 
-        TicketOrder ticketOrder = ticketOrderService.placeOrder(username, movie, numTickets, dateCreated);
+        TicketOrder ticketOrder = ticketOrderService.placeOrder(username, movie, numTickets, dateCreated, price, discount);
         model.addAttribute("ticketOrder", ticketOrder);
         return "orderConfirmation";
     }

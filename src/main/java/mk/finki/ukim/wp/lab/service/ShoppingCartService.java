@@ -1,5 +1,6 @@
 package mk.finki.ukim.wp.lab.service;
 
+import mk.finki.ukim.wp.lab.model.Discount;
 import mk.finki.ukim.wp.lab.model.ShoppingCart;
 import mk.finki.ukim.wp.lab.model.TicketOrder;
 

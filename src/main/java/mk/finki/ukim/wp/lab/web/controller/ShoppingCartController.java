@@ -2,6 +2,7 @@ package mk.finki.ukim.wp.lab.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import mk.finki.ukim.wp.lab.model.Discount;
 import mk.finki.ukim.wp.lab.model.ShoppingCart;
 import mk.finki.ukim.wp.lab.model.User;
 import mk.finki.ukim.wp.lab.service.ShoppingCartService;

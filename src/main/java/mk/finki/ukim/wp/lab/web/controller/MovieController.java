@@ -2,9 +2,11 @@ package mk.finki.ukim.wp.lab.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import mk.finki.ukim.wp.lab.model.Discount;
 import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.Production;
 import mk.finki.ukim.wp.lab.model.User;
+import mk.finki.ukim.wp.lab.service.DiscountService;
 import mk.finki.ukim.wp.lab.service.MovieService;
 import mk.finki.ukim.wp.lab.service.ProductionService;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,12 @@ import java.util.List;
 public class MovieController {
     public final MovieService movieService;
     public final ProductionService productionService;
+    public final DiscountService discountService;
 
-    public MovieController (MovieService movieService, ProductionService productionService) {
+    public MovieController (MovieService movieService, ProductionService productionService, DiscountService discountService) {
         this.movieService = movieService;
         this.productionService = productionService;
+        this.discountService = discountService;
     }
 
     @GetMapping()
@@ -53,7 +57,9 @@ public class MovieController {
         Movie movie = movieService.findById(id).get();
         model.addAttribute("movie",movie);
         List<Production> productions = productionService.findAll();
+        List<Discount> discounts = discountService.findAll();
         model.addAttribute("productions",productions);
+        model.addAttribute("discounts",discounts);
         return "editMovie";
     }
 
@@ -62,15 +68,19 @@ public class MovieController {
                             @RequestParam String movieTitle,
                             @RequestParam String summary,
                             @RequestParam double rating,
-                            @RequestParam Long productionId) {
-        movieService.editMovie(id, movieTitle, summary, rating, productionId);
+                            @RequestParam Long productionId,
+                                    @RequestParam double price,
+                                    @RequestParam Long discountId) {
+        movieService.editMovie(id, movieTitle, summary, rating, productionId, price, discountId);
         return "redirect:/movies";
     }
 
     @GetMapping("/add")
     public String addMovie(Model  model) {
         List<Production> productions = productionService.findAll();
+        List<Discount> discounts = discountService.findAll();
         model.addAttribute("productions", productions);
+        model.addAttribute("discounts",discounts);
         return"addMovie";
     }
 
@@ -78,9 +88,11 @@ public class MovieController {
     public String submitAddedMovie(@RequestParam String movieTitle,
                                     @RequestParam String movieSummary,
                                     @RequestParam double movieRating,
-                                    @RequestParam Long productionId) {
+                                    @RequestParam Long productionId,
+                                   @RequestParam double moviePrice,
+                                   @RequestParam Long discountId) {
 
-       movieService.saveMovie(movieTitle, movieSummary, movieRating, productionId);
+       movieService.saveMovie(movieTitle, movieSummary, movieRating, productionId, moviePrice, discountId);
        return "redirect:/movies";
     }
 
@@ -88,7 +100,7 @@ public class MovieController {
     public String cloneMovie(@PathVariable Long id) {
 
         Movie clonedMovie = this.movieService.findById(id).get();
-        movieService.saveMovie("Clone of " + clonedMovie.getTitle(), clonedMovie.getSummary(), clonedMovie.getRating(), clonedMovie.getProduction().getId());
+        movieService.saveMovie("Clone of " + clonedMovie.getTitle(), clonedMovie.getSummary(), clonedMovie.getRating(), clonedMovie.getProduction().getId(), clonedMovie.getPrice(), clonedMovie.getDiscount().getId());
         return "redirect:/movies";
     }
 }

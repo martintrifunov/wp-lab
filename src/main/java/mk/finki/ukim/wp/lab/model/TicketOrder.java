@@ -27,10 +27,18 @@ public class TicketOrder {
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
-    public TicketOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated) {
+    private double price;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id")
+    Discount discount;
+
+    public TicketOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated, double price, Discount discount) {
         this.movie = movie;
         this.user = user;
         this.dateCreated = dateCreated;
         this.numberOfTickets = numberOfTickets;
+        this.price = price - (discount.getPercent()*0.01 * price);
+        this.discount = discount;
     }
 }

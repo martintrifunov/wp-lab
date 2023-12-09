@@ -18,11 +18,18 @@ public class Movie {
     private long numberOfTicketOrders;
     @ManyToOne
     private Production production;
+    private double price;
 
-    public Movie(String title, String summary, double rating, Production production) {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id")
+    Discount discount;
+
+    public Movie(String title, String summary, double rating, Production production, double price, Discount discount) {
         this.title = title;
         this.summary = summary;
         this.rating = rating;
+        this.price = price;
         this.production = production;
+        this.discount = discount;
     }
 }

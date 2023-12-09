@@ -18,6 +18,9 @@
         <h5>Movie Title: <th:block th:text="${order.movie.title}"></th:block></h5>
         <h6>Number of Tickets: <th:block th:text="${order.numberOfTickets}"></th:block></h6>
         <h6>Date Created: <th:block th:text="${order.dateCreated}"></th:block></h6>
+        <h6>Price: <th:block th:text="${order.price}"></th:block></h6>
+        <h6>Discount Name: <th:block th:text="${order.discount.name}"></th:block></h6>
+        <h6>Discount Percent: <th:block th:text="${order.discount.percent}"></th:block></h6>
     </li>
 </ul>
 </body>

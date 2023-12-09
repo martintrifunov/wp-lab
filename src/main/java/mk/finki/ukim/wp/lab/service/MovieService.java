@@ -13,6 +13,6 @@ public interface MovieService {
     void increaseNumberOfTicketOrders(String title, long amount);
     void deleteById(Long id);
     Optional<Movie> findById(Long id);
-    Optional<Movie> saveMovie(String movieNewTitle, String movieNewSummary, double movieNewRating, Long newProduction);
-    Optional<Movie> editMovie(Long id, String movieNewTitle, String movieNewSummary, double movieNewRating, Long productionId);
+    Optional<Movie> saveMovie(String movieNewTitle, String movieNewSummary, double movieNewRating, Long newProduction, double price, Long discountId);
+    Optional<Movie> editMovie(Long id, String movieNewTitle, String movieNewSummary, double movieNewRating, Long productionId, double price, Long discountId);
 }

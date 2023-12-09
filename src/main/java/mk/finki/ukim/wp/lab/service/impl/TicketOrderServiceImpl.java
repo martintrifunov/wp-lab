@@ -1,5 +1,6 @@
 package mk.finki.ukim.wp.lab.service.impl;
 
+import mk.finki.ukim.wp.lab.model.Discount;
 import mk.finki.ukim.wp.lab.model.Movie;
 import mk.finki.ukim.wp.lab.model.TicketOrder;
 import mk.finki.ukim.wp.lab.model.User;
@@ -21,12 +22,12 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         this.ticketOrderRepositoryJPA = ticketOrderRepositoryJPA;
     }
     @Override
-    public TicketOrder placeOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated) {
+    public TicketOrder placeOrder(User user, Movie movie, long numberOfTickets, LocalDateTime dateCreated, double price, Discount discount) {
         if (numberOfTickets < 0) {
             throw new IllegalArgumentException();
         }
 
-        TicketOrder ticketOrder = new TicketOrder(user, movie, numberOfTickets, dateCreated);
+        TicketOrder ticketOrder = new TicketOrder(user, movie, numberOfTickets, dateCreated, price, discount);
         return this.ticketOrderRepository.save(ticketOrder);
     }
 
